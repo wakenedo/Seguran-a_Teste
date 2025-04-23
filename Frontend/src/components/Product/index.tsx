@@ -1,20 +1,43 @@
 import { useParams } from "react-router-dom";
+import { useProducts } from "../../hooks/useProducts";
+import { useCart } from "../../hooks/useCart";
+
 export function Product() {
   const { id } = useParams();
-  const product = {
-    id,
-    name: "Product " + id,
-    description: "Description of product " + id,
-    price: 99.99,
-  };
+  const { products } = useProducts();
+  const { addToCart } = useCart();
+
+  // Convert id param to number
+  const product = products.find((p) => p.id === Number(id));
+
+  if (!product) {
+    return <p>Product not found.</p>;
+  }
+
   return (
-    <div>
-      <h1>{product.name}</h1>
-      <p>{product.description}</p>
-      <p>
-        <strong>${product.price.toFixed(2)}</strong>
-      </p>
-      <button className="btn btn-success">Add to Cart</button>
+    <div className="">
+      <div className="border p-2">
+        <img
+          src={product.image}
+          className="rounded mx-auto d-block p-2 border"
+          alt={product.name}
+        />
+      </div>
+      <div className="p-2 border mx-auto mt-2">
+        <div>
+          <h1>{product.name}</h1>
+        </div>
+        <p>{product.description || "No description available."}</p>
+        <p>
+          <strong>${product.price.toFixed(2)}</strong>
+        </p>
+        <button
+          className="btn btn-success"
+          onClick={() => addToCart(product.id)}
+        >
+          Add to Cart
+        </button>
+      </div>
     </div>
   );
 }

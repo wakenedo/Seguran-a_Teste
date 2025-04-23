@@ -1,6 +1,6 @@
 export function Login() {
   return (
-    <div className="col-md-6 offset-md-3">
+    <div className="col-md-6 offset-md-3 border p-4">
       <h2>Login</h2>
       <form>
         <div className="mb-3">
@@ -15,7 +15,7 @@ export function Login() {
           </label>
           <input type="password" className="form-control" id="password" />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary mt-2">
           Login
         </button>
       </form>

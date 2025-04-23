@@ -19,6 +19,18 @@ export function Cart() {
     0
   );
 
+  const handleCheckout = () => {
+    const order = {
+      items: cartItems,
+      total: total.toFixed(2),
+    };
+
+    console.log("🛒 Checkout payload:", order);
+
+    // Optional: show feedback
+    alert("Checkout simulated — check console!");
+  };
+
   return (
     <div>
       <h2>Your Cart</h2>
@@ -34,7 +46,9 @@ export function Cart() {
         ))}
       </ul>
       <h4>Total: ${total.toFixed(2)}</h4>
-      <button className="btn btn-primary">Checkout</button>
+      <button className="btn btn-primary" onClick={handleCheckout}>
+        Checkout
+      </button>
     </div>
   );
 }

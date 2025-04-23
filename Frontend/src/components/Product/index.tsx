@@ -1,11 +1,14 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useProducts } from "../../hooks/useProducts";
 import { useCart } from "../../hooks/useCart";
+import { useAuth } from "../../hooks/useAuth";
 
 export function Product() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { products } = useProducts();
   const { addToCart } = useCart();
+  const { user } = useAuth(); // get current user
 
   // Convert id param to number
   const product = products.find((p) => p.id === Number(id));
@@ -31,12 +34,21 @@ export function Product() {
         <p>
           <strong>${product.price.toFixed(2)}</strong>
         </p>
-        <button
-          className="btn btn-success"
-          onClick={() => addToCart(product.id)}
-        >
-          Add to Cart
-        </button>
+        {user ? (
+          <button
+            className="btn btn-success"
+            onClick={() => addToCart(product.id)}
+          >
+            Add to Cart
+          </button>
+        ) : (
+          <button
+            className="btn btn-secondary"
+            onClick={() => navigate("/login")}
+          >
+            Login to Add
+          </button>
+        )}
       </div>
     </div>
   );

@@ -5,8 +5,10 @@ import { Home } from "./components/Home";
 import { Product } from "./components/Product";
 import { Cart } from "./components/Cart";
 import { Login } from "./components/Login";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { user, logout } = useAuth();
   return (
     <Router>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,11 +28,29 @@ function App() {
                   Cart
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
+            </ul>
+            <ul className="navbar-nav ms-auto">
+              {user ? (
+                <>
+                  <li className="nav-item">
+                    <span className="nav-link">Hello, {user.email}</span>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      className="btn btn-outline-secondary"
+                      onClick={logout}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+              )}
             </ul>
           </div>
         </div>

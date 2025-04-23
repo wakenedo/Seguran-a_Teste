@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import { ProductContext, ProductContextType } from "../context/ProductContext";
+import { ProductContext } from "../context/ProductContext";
+import { ProductContextType } from "../types/Product";
 
 // Custom hook
 export function useProducts(): ProductContextType {
